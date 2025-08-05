@@ -1,14 +1,11 @@
 import React from 'react';
 import { BsLinkedin } from 'react-icons/bs';
-// import { Pagination } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination, Autoplay } from 'swiper/modules';
 
-// import { Swiper, SwiperSlide } from 'swiper/react';
-
-// Import Swiper styles
-// import 'swiper/css';
-// import 'swiper/css/navigation';
-// import 'swiper/css/pagination';
-// import 'swiper/css/scrollbar';
+// Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
 import './testimonials.css';
 
 const Testimonials = () => {
@@ -56,31 +53,38 @@ const Testimonials = () => {
       test: "Meri is really cheerful and supportive person. I know her when she reviewed my resume. Her feedback was so crystal clear and super effective for me. After that, even though she has no responsibility of reviewing my resume again. She helped me patiently when I ask her again and again. Meri is gifted in reviewing the work and giving advice to others. I feel really lucky to have her as the reviewer of my resume.",
     },
   ];
+
   return (
-    <section id="testmonials">
+    <section id="testimonials">
       <h5>Feedback from my peers</h5>
       <h2>Testimonials</h2>
-      <div 
-        className="container testimonials__container"
-        // modules={[Pagination]}
-        // spaceBetween={40}
-        // slidesPerView={1}
-        // pagination={{ clickable: true }}
-        >
-        {testimonials.map((test) => (
-          <div className="testimonial" key={test.id}>
-          <div className="client__avatar">
-            <a href={test.link}>
-              <BsLinkedin />
-            </a>
-          </div>
-          <h5 className='client__name'>{test.name}</h5>
-          <small className="client__review">{test.test}</small>
-        </div>
-        ))}
-      </div>
-    </section>
-  )
-}
 
-export default Testimonials
+      <Swiper
+        className="container testimonials__container"
+        modules={[Pagination, Autoplay]}
+        spaceBetween={40}
+        slidesPerView={1}
+        pagination={{ clickable: true }}
+        autoplay={{ delay: 5000, disableOnInteraction: false }}
+        loop={true}
+      >
+        {testimonials.map((test) => (
+          <SwiperSlide key={test.id}>
+            <div className="testimonial">
+              <div className="client__avatar">
+                <a href={test.link} target="_blank" rel="noopener noreferrer">
+                  <BsLinkedin />
+                </a>
+              </div>
+              <h5 className='client__name'>{test.name}</h5>
+              <p className="client__role">{test.role}</p>
+              <small className="client__review">{test.test}</small>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </section>
+  );
+};
+
+export default Testimonials;
